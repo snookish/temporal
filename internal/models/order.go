@@ -10,13 +10,6 @@ const (
 	OrderStatusReserveInventorySucceeded OrderStatus = "RESERVE_INVENTORY_SUCCEEDED"
 )
 
-type PaymentMethod string
-
-const (
-	PaymentMethodUPI  PaymentMethod = "UPI"
-	PaymentMethodCard PaymentMethod = "CARD"
-)
-
 type ProcessOrderCommand struct {
 	OrderID       string
 	CustomerID    string
