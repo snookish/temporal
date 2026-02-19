@@ -10,6 +10,12 @@ const (
 	OrderStatusReserveInventorySucceeded OrderStatus = "RESERVE_INVENTORY_SUCCEEDED"
 )
 
+type CompensationStep string
+
+var (
+	CompensationStepRefund CompensationStep = "REFUND_PAYMENT"
+)
+
 type ProcessOrderCommand struct {
 	OrderID       string
 	CustomerID    string
@@ -31,8 +37,10 @@ type OrderItem struct {
 }
 
 type OrderState struct {
-	OrderID string
-	Status  OrderStatus
+	OrderID           string
+	ShipmentID        string
+	Status            OrderStatus
+	CompensationSteps []CompensationStep
 }
 
 func (o *OrderState) Is(status OrderStatus) bool {
@@ -40,5 +48,9 @@ func (o *OrderState) Is(status OrderStatus) bool {
 }
 
 func (o *OrderState) IsPaid() bool {
-	return o.Status == OrderStatusPaymentSucceeded
+	return o.Is(OrderStatusPaymentSucceeded)
+}
+
+func (o *OrderState) IsPending() bool {
+	return o.Is(OrderStatusPending)
 }
