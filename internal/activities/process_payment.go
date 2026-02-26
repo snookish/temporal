@@ -17,8 +17,10 @@ func ProcessPaymentActivity(ctx context.Context, cmd models.ProcessPaymentComman
 
 	logger.Info(
 		"Payment processing activity started",
-		"idempotencyKey", idempotencyKey, "orderID", cmd.OrderID, "paymentMethod",
-		cmd.PaymentMethod, "activityID", activityInfo.ActivityID, "amount", cmd.Amount.Amount, "currency", cmd.Amount.Currency,
+		"idempotencyKey", idempotencyKey,
+		"orderID", cmd.OrderID, "paymentMethod",
+		cmd.PaymentMethod, "activityID", activityInfo.ActivityID,
+		"amount", cmd.Amount.Amount, "currency", cmd.Amount.Currency,
 	)
 
 	// Check if we already processed this payment
